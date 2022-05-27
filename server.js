@@ -3,13 +3,10 @@ var url = require("url");
 
 function start(route, handle) {
     function onRequest(request, response) {
+        var postData = "";
         var pathname = getRequestPathname(request);
         console.log("Request for " + pathname + " received.");
-
-        response.writeHead(200, { "Content-Type": "text/plain" });
-        var content = route(handle, pathname);
-        response.write(content);
-        response.end();
+        route(handle, pathname, response, request);
     }
 
     function getRequestPathname(request) {
